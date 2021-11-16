@@ -1,0 +1,23 @@
+{
+  "name": "team-profile-generator",
+  "version": "1.0.0",
+  "description": "based on user input produces an html file with team info",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/npduval/Team-Profile-Generator.git"
+  },
+  "author": "npduval",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/npduval/Team-Profile-Generator/issues"
+  },
+  "homepage": "https://github.com/npduval/Team-Profile-Generator#readme",
+  "dependencies": {
+    "inquirer": "^8.2.0",
+    "jest": "^27.3.1"
+  }
+}
