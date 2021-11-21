@@ -1,7 +1,8 @@
 const inquirer = require('inquirer');
+const fs = require('fs'); 
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
-const Intern = require('./lib/Intern')
+const Intern = require('./lib/Intern');
 
 let colleages = [];
 
@@ -74,7 +75,6 @@ const CreateManager = () => {
 
 
  .then(MgrData => {
-   console.log(MgrData);
    const {name , id, email, officeNumber, addTeam} = MgrData;
    const manager = new Manager(name, id , email, officeNumber);
    colleages.push(manager);
@@ -82,7 +82,7 @@ const CreateManager = () => {
     CreateColleague(addTeam);
   } else {
     console.log(colleages);
-    return colleages;
+    createFile(colleages);
   }
 })
 
@@ -132,15 +132,15 @@ const CreateColleague = (role) => {
           }
         },
         {
-              type: 'number',
+              type: 'input',
               message: 'What is the employees\'s GitHub username?',
               name: 'gitHub',
-              when: (role) => role === 'Engineer',
+              when: (role === 'Engineer'),
               validate: input => {
                 if  (input) { 
                     return true; 
                 } else {
-                  console.log ('Please enter a valid office number')
+                  console.log ('Please enter a valid GitHub username')
                     return false;
                 }
             }
@@ -149,7 +149,7 @@ const CreateColleague = (role) => {
               type: 'input',
               message: 'What is the name of employees\'s school?',
               name: 'school',
-              when: (role) => role === 'Intern',
+              when: (role === 'Intern'),
               validate: input => {
                 if  (input) {
                     return true; 
@@ -168,11 +168,10 @@ const CreateColleague = (role) => {
     ])
 
     .then(empData => {
-      console.log(empData);
-      const {name , id, email, github, school, addTeam} = empData;
+      const {name , id, email, gitHub, school, addTeam} = empData;
         
       if (role === 'Engineer') {
-          let employee = new Engineer(name, id, email, github);
+          let employee = new Engineer(name, id, email, gitHub);
           colleages.push(employee);
       } else if (role === "Intern") {
           let employee = new Intern(name, id, email, school); 
@@ -183,13 +182,25 @@ const CreateColleague = (role) => {
         CreateColleague(addTeam);
       } else {
         console.log(colleages);
-        return colleages;
+        createFile(colleages);
       }
     })
 
     
   };
 
+    // const createHTML = () => {
 
+
+    // }
+
+  const createFile = (team) => {
+  const data = JSON.stringify(team);
+  fs.writeFile('./dist/index.html', data, (err) =>
+  err ? console.error(err) : console.log('Successfully created team profile')
+  ) 
+};
+
+  
 
   CreateManager();
