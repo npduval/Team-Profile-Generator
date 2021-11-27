@@ -265,7 +265,7 @@ const CreateColleague = (role) => {
               <ul class="list-group list-group-flush">
               <li class="list-group-item">Name: ${team[i].name}</li>
               <li class="list-group-item">ID: ${team[i].id}</li>
-              <li class="list-group-item">Email: <a href="mailto:${team[i].email}">${team[i].email}</li>
+              <li class="list-group-item">Email: <a href="mailto:${team[i].email}">${team[i].email}</a></li>
               <li class="list-group-item">School: ${team[i].school}</li>
               </ul>
           </div>
