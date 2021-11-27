@@ -8,7 +8,7 @@ const { createInflate } = require('zlib');
 
 let colleages = [];
 
-
+// Questions to create manager profile with validation
 const CreateManager = () => {
   inquirer.prompt(
   [
@@ -78,11 +78,16 @@ const CreateManager = () => {
 
  .then(MgrData => {
    const {name , id, email, officeNumber, addTeam} = MgrData;
+   //creates new instance of manager class and pushes it to collegues array
    const manager = new Manager(name, id , email, officeNumber);
    colleages.push(manager);
+
+   // if adding another team member more questions
    if (addTeam === "Engineer" || addTeam ==="Intern") {
     CreateColleague(addTeam);
   } else {
+
+    //if no other team members starts creating the HTML output
     console.log(colleages);
     createHTML(colleages);
     
@@ -91,6 +96,7 @@ const CreateManager = () => {
 
 };
 
+// Questions when adding additioanl team members
 const CreateColleague = (role) => {
   inquirer.prompt(
       [
@@ -172,6 +178,8 @@ const CreateColleague = (role) => {
 
     .then(empData => {
       const {name , id, email, gitHub, school, addTeam} = empData;
+
+      // create new instance of Engineer or Intern class depending on what type of employee info was enetered and pushes to collegue array
         
       if (role === 'Engineer') {
           let engineer = new Engineer(name, id, email, gitHub);
@@ -181,6 +189,7 @@ const CreateColleague = (role) => {
           colleages.push(intern);     
       } 
        
+      // if done creates HTML, if more team members begins the questions again
       if (addTeam === "Engineer" || addTeam ==="Intern") {
         CreateColleague(addTeam);
       } else {
@@ -192,6 +201,7 @@ const CreateColleague = (role) => {
     
   };
 
+  // uses string to create an HTML file of all instances of team members in the collegues array
 
     const createHTML = (team) => {
 
@@ -223,7 +233,7 @@ const CreateColleague = (role) => {
               <ul class="list-group list-group-flush">
               <li class="list-group-item">Name: ${team[i].name}</li>
               <li class="list-group-item">ID: ${team[i].id}</li>
-              <li class="list-group-item">Email: ${team[i].email}</li>
+              <li class="list-group-item">Email: <a href="mailto:${team[i].email}">${team[i].email}</a></li>
               <li class="list-group-item">Office: ${team[i].officeNumber}</li>
               </ul>
           </div>
@@ -239,8 +249,8 @@ const CreateColleague = (role) => {
               <ul class="list-group list-group-flush">
               <li class="list-group-item">Name: ${team[i].name}</li>
               <li class="list-group-item">ID: ${team[i].id}</li>
-              <li class="list-group-item">Email: ${team[i].email}</li>
-              <li class="list-group-item">GitHub: ${team[i].gitHub}</li>
+              <li class="list-group-item">Email: <a href="mailto:${team[i].email}">${team[i].email}</a></li>
+              <li class="list-group-item">GitHub: <a href="https://github.com/${team[i].gitHub}" target="_blank">${team[i].gitHub}</a></li>
               </ul>
           </div>
       </div>`;
@@ -255,7 +265,7 @@ const CreateColleague = (role) => {
               <ul class="list-group list-group-flush">
               <li class="list-group-item">Name: ${team[i].name}</li>
               <li class="list-group-item">ID: ${team[i].id}</li>
-              <li class="list-group-item">Email: ${team[i].email}</li>
+              <li class="list-group-item">Email: <a href="mailto:${team[i].email}">${team[i].email}</li>
               <li class="list-group-item">School: ${team[i].school}</li>
               </ul>
           </div>
@@ -274,6 +284,8 @@ const CreateColleague = (role) => {
 
     }
 
+    // writes the string to a file anmed index.html and places in the dist folder
+
   const createFile = (html) => {
   
   fs.writeFile('./dist/index.html', html, (err) =>
@@ -282,5 +294,5 @@ const CreateColleague = (role) => {
 };
 
   
-
+//initializes the application
   CreateManager();
