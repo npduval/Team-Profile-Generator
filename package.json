@@ -4,7 +4,7 @@
   "description": "based on user input produces an html file with team info",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "jest"
   },
   "repository": {
     "type": "git",

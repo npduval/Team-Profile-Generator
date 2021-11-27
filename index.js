@@ -212,7 +212,7 @@ const CreateColleague = (role) => {
                   <div class="row justify-content-center" id="cards">`];
 
       for ( i = 0; i < team.length; i++) {
-      //DEVNOTE - string litterals all undefined
+      
         if (team[i] instanceof Manager) {
          
           const data = `<div class="col-4 mt-5">
