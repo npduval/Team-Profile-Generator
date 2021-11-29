@@ -6,7 +6,7 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const { createInflate } = require('zlib');
 
-let colleages = [];
+let colleagues = [];
 
 // Questions to create manager profile with validation
 const CreateManager = () => {
@@ -80,7 +80,7 @@ const CreateManager = () => {
    const {name , id, email, officeNumber, addTeam} = MgrData;
    //creates new instance of manager class and pushes it to collegues array
    const manager = new Manager(name, id , email, officeNumber);
-   colleages.push(manager);
+   colleagues.push(manager);
 
    // if adding another team member more questions
    if (addTeam === "Engineer" || addTeam ==="Intern") {
@@ -88,8 +88,8 @@ const CreateManager = () => {
   } else {
 
     //if no other team members starts creating the HTML output
-    console.log(colleages);
-    createHTML(colleages);
+    console.log(colleagues);
+    createHTML(colleagues);
     
   }
 })
@@ -183,18 +183,18 @@ const CreateColleague = (role) => {
         
       if (role === 'Engineer') {
           let engineer = new Engineer(name, id, email, gitHub);
-          colleages.push(engineer);
+          colleagues.push(engineer);
       } else if (role === "Intern") {
           let intern = new Intern(name, id, email, school); 
-          colleages.push(intern);     
+          colleagues.push(intern);     
       } 
        
       // if done creates HTML, if more team members begins the questions again
       if (addTeam === "Engineer" || addTeam ==="Intern") {
         CreateColleague(addTeam);
       } else {
-        console.log(colleages);
-        createHTML(colleages);
+        console.log(colleagues);
+        createHTML(colleagues);
       }
     })
 
@@ -207,6 +207,7 @@ const CreateColleague = (role) => {
 
       let file = [`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
           <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
           <link href="../src/style.css" rel="stylesheet">
           <title>Template</title>
@@ -228,7 +229,7 @@ const CreateColleague = (role) => {
           const data = `<div class="col-4 mt-5">
           <div class="card  h-100" style="width: 18rem;">
               <div class="card-header text-dark bg-info mb-3">
-              Manager
+              Manager <i class="fas fa-mug-hot"></i>
               </div>
               <ul class="list-group list-group-flush">
               <li class="list-group-item">Name: ${team[i].name}</li>
@@ -244,7 +245,7 @@ const CreateColleague = (role) => {
           const data = `<div class="col-4 mt-5">
           <div class="card  h-100" style="width: 18rem;">
               <div class="card-header text-dark bg-info mb-3">
-              Engineer
+              Engineer <i class="fas fa-glasses"></i>
               </div>
               <ul class="list-group list-group-flush">
               <li class="list-group-item">Name: ${team[i].name}</li>
@@ -260,7 +261,7 @@ const CreateColleague = (role) => {
          const data = `<div class="col-4 mt-5">
           <div class="card  h-100" style="width: 18rem;">
               <div class="card-header text-dark bg-info mb-3">
-              Intern
+              Intern <i class="fas fa-graduation-cap"></i>
               </div>
               <ul class="list-group list-group-flush">
               <li class="list-group-item">Name: ${team[i].name}</li>
@@ -275,7 +276,7 @@ const CreateColleague = (role) => {
 
       }
 
-      let footer = `  </div></div></main></body></html>`
+      let footer = `</div></div></main></body></html>`
       file.push(footer);
       let full = file.join();
 
